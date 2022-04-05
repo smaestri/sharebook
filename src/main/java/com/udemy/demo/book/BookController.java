@@ -35,6 +35,13 @@ public class BookController {
     public ResponseEntity updateBook(@PathVariable("bookId") String bookId, Book book) {
         // TODO
         return new ResponseEntity(HttpStatus.OK);
-
     }
+
+    @GetMapping("/categories")
+    public ResponseEntity listCategories() {
+        Category category = new Category("BD");
+        Category categoryRoman = new Category("Roman");
+        return new ResponseEntity<>(Arrays.asList(category, categoryRoman), HttpStatus.OK);
+    }
+
 }
