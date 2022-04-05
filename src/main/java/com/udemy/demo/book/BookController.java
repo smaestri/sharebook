@@ -9,7 +9,7 @@ import java.util.Arrays;
 @RestController
 public class BookController {
 
-    @GetMapping(value="/books")
+    @GetMapping(value = "/books")
     public ResponseEntity list() {
         Book book = new Book();
         book.setTitle("title");
@@ -17,22 +17,22 @@ public class BookController {
         return new ResponseEntity<>(Arrays.asList(book), HttpStatus.OK);
     }
 
-    @PostMapping(value="books")
-    public ResponseEntity create(Book book) {
+    @PostMapping(value = "books")
+    public ResponseEntity create(@RequestBody Book book) {
         // TODO
         return new ResponseEntity(book, HttpStatus.CREATED);
 
     }
 
-    @DeleteMapping(value="books/{bookId}")
+    @DeleteMapping(value = "books/{bookId}")
     public ResponseEntity deleteBook(@PathVariable("bookId") String bookId) {
         // TODO
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 
     }
 
-    @PutMapping(value="books/{bookId}")
-    public ResponseEntity updateBook(@PathVariable("bookId") String bookId, Book book) {
+    @PutMapping(value = "books/{bookId}")
+    public ResponseEntity updateBook(@PathVariable("bookId") String bookId, @RequestBody Book book) {
         // TODO
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -43,5 +43,4 @@ public class BookController {
         Category categoryRoman = new Category("Roman");
         return new ResponseEntity<>(Arrays.asList(category, categoryRoman), HttpStatus.OK);
     }
-
 }
