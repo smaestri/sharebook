@@ -1,7 +1,10 @@
 package com.udemy.demo.book;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Book {
 
+    @NotBlank
     private String title;
     private Category category;
 
