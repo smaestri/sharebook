@@ -16,4 +16,14 @@ public class BorrowController {
         borrow.setAskDate(LocalDate.now());
         return new ResponseEntity(borrow, HttpStatus.OK);
     }
+
+    @PostMapping("/borrows/{bookId}")
+    public ResponseEntity createBorrow(@PathVariable("bookId") String bookId) {
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/borrows/{borrowId}")
+    public ResponseEntity delete(@PathVariable("borrowId") String borrowId) {
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
