@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 
 @RestController
@@ -18,7 +19,7 @@ public class BookController {
     }
 
     @PostMapping(value = "books")
-    public ResponseEntity create(@RequestBody Book book) {
+    public ResponseEntity create(@Valid @RequestBody Book book) {
         // TODO
         return new ResponseEntity(book, HttpStatus.CREATED);
 
