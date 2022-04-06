@@ -23,11 +23,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     MyUserDetailService service;
 
+    @Autowired
+    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
                 .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -57,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    private PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
