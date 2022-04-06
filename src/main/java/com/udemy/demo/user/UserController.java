@@ -17,8 +17,8 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping(value = "/users")
-    public ResponseEntity add(@Valid @RequestBody  User user) {
-        List<User> users = userRepository.findByEmail(user.getEmail());
+    public ResponseEntity add(@Valid @RequestBody UserInfo user) {
+        List<UserInfo> users = userRepository.findByEmail(user.getEmail());
         if(!users.isEmpty()) {
             return new ResponseEntity("User already existing", HttpStatus.BAD_REQUEST);
         }
