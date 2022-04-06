@@ -2,7 +2,7 @@ package com.udemy.demo.book;
 
 import com.udemy.demo.borrow.Borrow;
 import com.udemy.demo.borrow.BorrowRepository;
-import com.udemy.demo.user.User;
+import com.udemy.demo.user.UserInfo;
 import com.udemy.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +47,7 @@ public class BookController {
     @PostMapping(value = "/books")
     public ResponseEntity create(@RequestBody @Valid Book book) {
         Integer userConnectedId = this.getUserConnectedId();
-        Optional<User> user = userRepository.findById(userConnectedId);
+        Optional<UserInfo> user = userRepository.findById(userConnectedId);
         Optional<Category> category = categoryRepository.findById(book.getCategoryId());
         if (category.isPresent()) {
             book.setCategory(category.get());
@@ -79,7 +78,7 @@ public class BookController {
 
         for (Borrow borrow : borrows) {
             if (borrow.getCloseDate() == null) {
-                User borrower = borrow.getBorrower();
+                UserInfo borrower = borrow.getBorrower();
                 return new ResponseEntity(borrower, HttpStatus.CONFLICT);
             }
 
