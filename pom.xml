@@ -15,6 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<spring-doc.version>2.0.2</spring-doc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -30,6 +31,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${spring-doc.version}</version>
 		</dependency>
 	</dependencies>
 
