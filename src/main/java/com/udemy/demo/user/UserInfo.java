@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
 @Entity
-public class User {
+public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,10 @@ public class User {
 
     private String password;
 
-    public User() {
+    public UserInfo() {
     }
 
-    public User(String email) {
+    public UserInfo(String email) {
         this.email = email;
     }
 
