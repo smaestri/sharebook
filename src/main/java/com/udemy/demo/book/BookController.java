@@ -1,5 +1,7 @@
 package com.udemy.demo.book;
 
+import com.udemy.demo.borrow.Borrow;
+import com.udemy.demo.borrow.BorrowRepository;
 import com.udemy.demo.user.User;
 import com.udemy.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class BookController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private BorrowRepository borrowRepository;
 
     @GetMapping(value = "/books")
     public ResponseEntity list(@RequestParam(required = false) BookStatus status) {
@@ -61,12 +66,29 @@ public class BookController {
         return new ResponseEntity(book, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "books/{bookId}")
+    @DeleteMapping(value = "/books/{bookId}")
     public ResponseEntity deleteBook(@PathVariable("bookId") String bookId) {
-        // TODO
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        Optional<Book> bookToDelete = bookRepository.findById(Integer.valueOf(bookId));
 
+        if (!bookToDelete.isPresent()) {
+            return new ResponseEntity("Book not found", HttpStatus.BAD_REQUEST);
+        }
+
+        Book updatedBook = bookToDelete.get();
+        List<Borrow> borrows = borrowRepository.findByBookId(updatedBook.getId());
+
+        for (Borrow borrow : borrows) {
+            if (borrow.getCloseDate() == null) {
+                User borrower = borrow.getBorrower();
+                return new ResponseEntity(borrower, HttpStatus.CONFLICT);
+            }
+
+        }
+        updatedBook.setDeleted(true);
+        bookRepository.save(updatedBook);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
 
     @PutMapping(value = "books/{bookId}")
     public ResponseEntity updateBook(@PathVariable("bookId") String bookId, @RequestBody Book book) {
@@ -78,6 +100,7 @@ public class BookController {
     public ResponseEntity listCategories() {
         Category category = new Category("BD");
         Category categoryRoman = new Category("Roman");
+
         return new ResponseEntity<>(Arrays.asList(category, categoryRoman), HttpStatus.OK);
     }
 }
