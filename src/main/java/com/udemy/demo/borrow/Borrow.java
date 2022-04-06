@@ -3,14 +3,34 @@ package com.udemy.demo.borrow;
 import com.udemy.demo.book.Book;
 import com.udemy.demo.user.User;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class Borrow {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
     private User borrower;
+
+    @ManyToOne
     private User lender;
+
+    @ManyToOne
     private Book book;
+
     private LocalDate askDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public LocalDate getAskDate() {
         return askDate;
