@@ -112,4 +112,13 @@ public class BookController {
 
         return new ResponseEntity<>(Arrays.asList(category, categoryRoman), HttpStatus.OK);
     }
+
+    @GetMapping("/books/{bookId}")
+    public ResponseEntity loadBook(@PathVariable("bookId") String bookId) {
+        Optional<Book> book = bookRepository.findById(Integer.valueOf(bookId));
+        if(!book.isPresent()){
+            return new ResponseEntity("Book not found", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(book.get(), HttpStatus.OK);
+    }
 }
