@@ -26,6 +26,9 @@ public class Book {
     @Transient
     private int categoryId;
 
+    private boolean deleted;
+
+
     public int getId() {
         return id;
     }
@@ -73,4 +76,13 @@ public class Book {
     public void setCategory(Category category) {
         this.category = category;
     }
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+
 }
