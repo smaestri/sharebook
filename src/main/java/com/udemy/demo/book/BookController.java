@@ -41,7 +41,7 @@ public class BookController {
         return new ResponseEntity(books, HttpStatus.OK);
     }
 
-    private Integer getUserConnectedId() {
+    public static Integer getUserConnectedId() {
         return 1;
     }
 
