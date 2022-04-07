@@ -2,14 +2,17 @@ package com.udemy.demo.book;
 
 import com.udemy.demo.borrow.Borrow;
 import com.udemy.demo.borrow.BorrowRepository;
+import com.udemy.demo.configuration.MyUserDetailService;
 import com.udemy.demo.user.UserInfo;
 import com.udemy.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +32,8 @@ public class BookController {
     private BorrowRepository borrowRepository;
 
     @GetMapping(value = "/books")
-    public ResponseEntity list(@RequestParam(required = false) BookStatus status) {
-        Integer userConnectedId = this.getUserConnectedId();
+    public ResponseEntity list(@RequestParam(required = false) BookStatus status, Principal principal) {
+        Integer userConnectedId = this.getUserConnectedId(principal);
         List<Book> books;
         if (status != null && status == BookStatus.FREE) {
             books = bookRepository.findByStatusAndUserIdNotAndDeletedFalse(status, userConnectedId);
@@ -40,13 +43,19 @@ public class BookController {
         return new ResponseEntity(books, HttpStatus.OK);
     }
 
-    public static Integer getUserConnectedId() {
-        return 1;
+    public Integer getUserConnectedId(Principal principal) {
+        if (!(principal instanceof UsernamePasswordAuthenticationToken)) {
+            throw new RuntimeException(("User not found"));
+        }
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
+        UserInfo oneByEmail = userRepository.findOneByEmail(token.getName());
+
+        return oneByEmail.getId();
     }
 
     @PostMapping(value = "/books")
-    public ResponseEntity create(@RequestBody @Valid Book book) {
-        Integer userConnectedId = this.getUserConnectedId();
+    public ResponseEntity create(@RequestBody @Valid Book book, Principal principal) {
+        Integer userConnectedId = this.getUserConnectedId(principal);
         Optional<UserInfo> user = userRepository.findById(userConnectedId);
         Optional<Category> category = categoryRepository.findById(book.getCategoryId());
         if (category.isPresent()) {
@@ -117,4 +126,6 @@ public class BookController {
         }
         return new ResponseEntity(book.get(), HttpStatus.OK);
     }
+
+
 }
