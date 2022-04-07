@@ -1,10 +1,10 @@
-import ListBooks from './ListBooks';
+import MyBooks from './MyBooks';
 
 function App() {
 
   return (
     <div className="App">
-      <ListBooks />
+      <MyBooks />
     </div>
   );
 }
