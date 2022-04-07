@@ -1,5 +1,7 @@
 package com.udemy.demo.configuration;
 
+import com.udemy.demo.jwt.JwtFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,10 +10,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
+
+    @Autowired
+    JwtFilter jwtFilter;
 
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
@@ -28,6 +34,7 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
 
                 );
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
