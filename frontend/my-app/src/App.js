@@ -4,12 +4,14 @@ import AddUser from './AddUser';
 import ListBooks from './ListBooks'
 import MyBooks from './MyBooks'
 import Login from './Login'
+import Header from './Header'
 import MyBorrows from './MyBorrows'
 
 function App() {
 
   return (
     <div>
+       <Header />
       <div className="App">
         <Routes>
           <Route path="listBooks" element={<ListBooks />} />
