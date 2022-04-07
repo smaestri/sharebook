@@ -1,5 +1,6 @@
 package com.udemy.demo.configuration;
 
+import com.udemy.demo.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 import javax.servlet.http.Cookie;
@@ -19,12 +21,14 @@ import javax.servlet.http.Cookie;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
     @Autowired
     MyUserDetailService service;
 
     @Autowired
     RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+    @Autowired
+    JwtFilter jwtFilter;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -53,6 +57,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         response.addCookie(cookieToDelete);
                     }
                 });
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Autowired
@@ -67,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }
 }
