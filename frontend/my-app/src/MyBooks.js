@@ -29,7 +29,7 @@ class MyBooks extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Mes livres</h1>
         <div className="list-container">
           {this.state.books.length === 0 ? "Vous n'avez pas déclaré de livres" : null}
@@ -37,13 +37,13 @@ class MyBooks extends React.Component {
             <Book title={book.title} category={book.category}></Book>
             <div className="container-buttons">
               <Link to={`/addBook/${book.id}`}>
-                <button>Modifier</button>
+                <button className="btn btn-primary btn-sm">Modifier</button>
               </Link>
-              <button>Supprimer</button>
+              <button className="btn btn-primary btn-sm">Supprimer</button>
             </div>
           </div>))}
         </div>
-        <Link to="/addBook"><button>Nouveau livre</button></Link>
+        <Link to="/addBook"><button className="btn btn-primary btn-sm">Nouveau livre</button></Link>
       </div>)
   }
 
