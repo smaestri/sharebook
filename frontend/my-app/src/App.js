@@ -7,6 +7,8 @@ import Login from './Login'
 import Header from './Header'
 import MyBorrows from './MyBorrows'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
 
   return (
