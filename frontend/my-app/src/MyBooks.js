@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Book from './Book'
 
 class MyBooks extends React.Component {
@@ -29,13 +30,15 @@ class MyBooks extends React.Component {
       <div>
         <h1>Mes livres</h1>
         {this.state.books.length === 0 ? "Vous n'avez pas déclaré de livres" : null}
-        {this.state.books.map(book => (<div>
+        {this.state.books.map((book) => (<div>
           <Book title={book.title} category={book.category}></Book>
-          <button>Modifier</button>
+          <Link to={`/addBook/${book.id}`}>
+            <button>Modifier</button>
+          </Link>
           <button>Supprimer</button>
         </div>))}
         <br />
-        <button>Nouveau livre</button>
+        <Link to="/addBook"><button>Nouveau livre</button></Link>
       </div>)
   }
 
