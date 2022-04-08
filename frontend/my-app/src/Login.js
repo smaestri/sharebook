@@ -8,7 +8,14 @@ export default class Login extends React.Component {
     constructor() {
         super();
         this.state = { userData: {} }
+        this.handleChange = this.handleChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+    }
+
+    handleChange(event) {
+        let currentState = {...this.state.userData};
+        currentState[event.target.name] = event.target.value;
+        this.setState({ userData: currentState })
     }
 
     onSubmit(event) {
