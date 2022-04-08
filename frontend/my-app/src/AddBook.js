@@ -22,6 +22,12 @@ export default function AddBook() {
         return "update book"
     }
 
+    const handleChange = (event) => {
+        let currentState = {...bookData};
+        currentState[event.target.name] = event.target.value;
+        setBookData(currentState)
+    }
+
     const onSubmit = (event) => {
         event.preventDefault();
         console.log("onSubmit")
@@ -35,11 +41,11 @@ export default function AddBook() {
             <form onSubmit={onSubmit}>
                 <div>
                     <label>Nom du livre</label>
-                    <input name="name" type="text" className="form-control"></input>
+                    <input name="name" type="text" onChange={handleChange} className="form-control"></input>
                 </div>
                 <div>
                     <label>Catégorie du livre</label>
-                    <select name="categoryId" className="form-control">
+                    <select name="categoryId" onChange={handleChange} className="form-control">
                         {categories.map(category => (
                             <option key={category.id} value={category.id}>{category.label}</option>
                         ))}
