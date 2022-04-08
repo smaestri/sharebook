@@ -1,0 +1,14 @@
+.list-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+
+    .borrow-container {
+        margin-bottom: 25px;
+        button {
+            width: 60%;
+            text-align: center;
+        }
+
+    }
+}  
