@@ -1,11 +1,23 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-
 import "./AddBook.scss"
 
 export default function AddBook() {
     let { bookId } = useParams();
-   
+    const [bookData, setBookData] = React.useState({name: '', categoryId: 1 })
+    const categories = [{
+        id: 1,
+        label: "BD"
+    },
+    {
+        id: 2,
+        label: "Roman"
+    },
+    {
+        id: 3,
+        label: "Informatique"
+    }]
+
     if (bookId) {
         return "update book"
     }
@@ -13,6 +25,7 @@ export default function AddBook() {
     const onSubmit = (event) => {
         event.preventDefault();
         console.log("onSubmit")
+        console.log(bookData)
         // TODO
     }
 
@@ -27,8 +40,9 @@ export default function AddBook() {
                 <div>
                     <label>Catégorie du livre</label>
                     <select name="categoryId" className="form-control">
-                        <option value="1">BD</option>
-                        <option value="2">Roman</option>
+                        {categories.map(category => (
+                            <option key={category.id} value={category.id}>{category.label}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="container-submit">
