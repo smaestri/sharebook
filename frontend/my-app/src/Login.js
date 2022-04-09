@@ -1,9 +1,8 @@
 import React from 'react'
 import logo from './logo.jpg';
+import SimpleModal from './SimpleModal';
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
 import './Login.scss'
 
 class Login extends React.Component {
@@ -28,6 +27,7 @@ class Login extends React.Component {
             email: this.state.userData.email,
             password: this.state.userData.password
         }).then((response) => {
+            console.log('response')
             this.props.setUserInfo(response.data.userName)
             this.props.history('/listbooks')
         }).catch(() => {
@@ -66,17 +66,7 @@ class Login extends React.Component {
                     </div>
                 </div>
 
-                <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{title}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>{bodyTxt}</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleCloseModal}>
-                            OK
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                <SimpleModal title={title} bodyTxt={bodyTxt} handleCloseModal={this.handleCloseModal} showModal={this.state.showModal} />
             </>
         )
     }
