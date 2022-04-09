@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import AddBook from './AddBook';
 import AddUser from './AddUser';
 import ListBooks from './ListBooks'
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div>
-      <Header userInfo={userInfo}/>
+      {userInfo && <Header userInfo={userInfo} setUserInfo={setUserInfo} />}
       <div className="App">
         <Routes>
           <Route path="listBooks" element={<ListBooks />} />
@@ -26,6 +26,7 @@ function App() {
           <Route path="myBorrows" element={<MyBorrows />} />
           <Route path="login" element={<Login />} />
           <Route path="addUser" element={<AddUser setUserInfo={setUserInfo}/>} />
+          <Route path="*" element={<Login />} />
         </Routes>
       </div>
     </div>
