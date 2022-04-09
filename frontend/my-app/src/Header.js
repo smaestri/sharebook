@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
-export default function Header({userInfo}) {
+import { AUTH_TOKEN_KEY } from "App";
+
+export default function Header({ userInfo }) {
+    const history = useNavigate();
+    const signout = () => {
+       sessionStorage.removeItem(AUTH_TOKEN_KEY)
+       history('/login')
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -21,7 +30,7 @@ export default function Header({userInfo}) {
                     </li>
                 </ul>
                 <div>Bienvenue, {userInfo}</div>
-                <button variant="secondary">Se déconnecter</button>
+                <button variant="secondary" onClick={signout}>Se déconnecter</button>
             </div>
         </nav>
     )
