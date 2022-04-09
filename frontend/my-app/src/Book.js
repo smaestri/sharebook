@@ -12,7 +12,9 @@ export default class Book extends React.Component {
                 </div>
                 <div>Titre : {this.props.title}</div>
                 <div>Catégorie: {this.props.category}</div>
-                <div>Preteur: {this.props.lender}</div>
+                {this.props.lender &&  <div>Prêteur: {this.props.lender}</div>}
+                {this.props.askDate && <div>Date demande: {this.props.askDate}</div>}
+                {this.props.closeDate && <div>Date cloture: {this.props.closeDate}</div>}
             </div>
         )
     }
