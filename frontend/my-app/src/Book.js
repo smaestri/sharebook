@@ -12,6 +12,7 @@ export default class Book extends React.Component {
                 </div>
                 <div>Titre : {this.props.title}</div>
                 <div>Catégorie: {this.props.category}</div>
+                <div>Preteur: {this.props.lender}</div>
             </div>
         )
     }
