@@ -29,7 +29,7 @@ const MyBooks = () => {
       <h1>Mes livres</h1>
       <div className="list-container">
         {myBooks.length === 0 ? "Vous n'avez pas déclaré de livres" : null}
-        {myBooks.map((book) => (<div className="mybook-container">
+        {myBooks.map((book, key) => (<div key={key} className="mybook-container">
           <Book title={book.title} category={book.category}></Book>
           <div className="container-buttons">
             <Link to={`/addBook/${book.id}`}>
