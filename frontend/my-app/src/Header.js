@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-
 import { AUTH_TOKEN_KEY } from "App";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export default function Header({ userInfo, setUserInfo }) {
     const history = useNavigate();
