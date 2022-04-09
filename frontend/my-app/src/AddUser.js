@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 import './AddUser.scss'
 
@@ -16,11 +17,14 @@ class AddUser extends React.Component {
     this.setState({ userData: currentState })
   }
 
-  onSubmit = (event) => {
+  onSubmit = (event) =>  {
     event.preventDefault();
-    console.log("onSubmit")
-    console.log(this.state.userData)
-  }
+    axios.post('/users', {
+      ...this.state.userData
+    }).then(response => {
+      console.log('created' + response)
+    })
+}
 
   render() {
     return (
