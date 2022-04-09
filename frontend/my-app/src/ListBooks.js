@@ -1,5 +1,6 @@
 import React from 'react'
 import Book from './Book'
+import axios from 'axios';
 
 import './MyBooks.scss'
 import './ListBooks.scss'
@@ -11,21 +12,10 @@ export default class ListBooks extends React.Component {
     this.state = { books: [] }
   }
   componentDidMount() {
-    // TODO charger les livres disponibles a partir des API back
-    this.setState({
-      books: [
-        {
-          title: "asterix",
-          category: "BD",
-        },
-
-        {
-          title: "tintin",
-          category: "BD",
-        }
-      ]
+    axios.get('/books?status=FREE').then(response => {
+      this.setState({books: response.data})
     })
-  }
+   }
 
   render() {
 
@@ -34,7 +24,7 @@ export default class ListBooks extends React.Component {
       <div className="list-container">
         {this.state.books.length === 0 ? "Pas de livres disponibles" : null}
         {this.state.books.map((book, key) => (<div key={key} className="list-book-container">
-          <Book title={book.title} category={book.category}></Book>
+          <Book title={book.title} category={book.category.label}></Book>
           <div className="text-center">
             <button className="btn btn-primary btn-sm">Emprunter</button>
           </div>
