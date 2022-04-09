@@ -30,19 +30,20 @@ function App() {
 
   return (
     <div>
-      <Header userInfo={userInfo}/>
-      <div className="App">
-        <Routes>
-          <Route path="listBooks" element={<ListBooks />} />
-          <Route path="myBooks" element={<MyBooks />} />
-          <Route path="addBook" element={<AddBook />} />
-          <Route path="addBook/:bookId" element={<AddBook />} />
-          <Route path="myBorrows" element={<MyBorrows />} />
-          <Route path="login" element={<Login />} />
-          <Route path="addUser" element={<AddUser  setUserInfo={setUserInfo} />} />
-        </Routes>
-      </div>
-    </div>
+    {userInfo && <Header userInfo={userInfo} setUserInfo={setUserInfo} />}
+   <div className="App">
+     <Routes>
+       <Route path="listBooks" element={<ListBooks />} />
+       <Route path="myBooks" element={<MyBooks />} />
+       <Route path="addBook" element={<AddBook />} />
+       <Route path="addBook/:bookId" element={<AddBook />} />
+       <Route path="myBorrows" element={<MyBorrows />} />
+       <Route path="login" element={<Login />} />
+       <Route path="addUser" element={<AddUser  setUserInfo={setUserInfo} />} />
+       <Route path="*" element={<Login />} />
+     </Routes>
+   </div>
+ </div>
   );
 }
 export default App;
