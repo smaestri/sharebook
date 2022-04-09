@@ -1,13 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import "./AddBook.scss"
 
 export default function AddBook() {
     let { bookId } = useParams();
-    const [bookData, setBookData] = React.useState({name: '', categoryId: 1 })
+    const [bookData, setBookData] = React.useState({title: '', categoryId: 1 })
     const [categoriesData, setCategoriesData] = useState([])
+    const history = useNavigate();
 
     useEffect(() => {
         axios.get('/categories').then(response => {
@@ -26,10 +27,23 @@ export default function AddBook() {
     }
 
     const onSubmit = (event) => {
-        event.preventDefault();
-        console.log("onSubmit")
-        console.log(bookData)
-        // TODO
+        if (bookId) {
+            event.preventDefault();
+            axios.put(`/books/${bookId}`, {
+                ...bookData
+            }).then(() => {
+                //rediriger vers myBooks
+                history("/myBooks")
+            })
+        } else {
+            event.preventDefault();
+            axios.post('/books', {
+                ...bookData
+            }).then(() => {
+                //rediriger vers myBooks
+                history("/myBooks")
+            })
+        }
     }
 
     return (
@@ -38,7 +52,7 @@ export default function AddBook() {
             <form onSubmit={onSubmit}>
                 <div>
                     <label>Nom du livre</label>
-                    <input name="name" type="text" onChange={handleChange} className="form-control"></input>
+                    <input name="title" type="text" onChange={handleChange} className="form-control"></input>
                 </div>
                 <div>
                     <label>Catégorie du livre</label>
