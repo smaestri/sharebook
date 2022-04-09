@@ -29,9 +29,9 @@ export default function MyBorrows() {
         <div className="container">
             <h1>Mes emprunts</h1>
             <div className="list-container">
-                {myBorrows.map((borrow) => {
+                {myBorrows.map((borrow, key) => {
                     return (
-                        <div className="borrow-container">
+                        <div className="borrow-container" key={key}>
                             <Book
                                 title={borrow.book.title}
                                 category={borrow.book.category.label}
