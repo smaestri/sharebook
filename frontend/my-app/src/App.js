@@ -38,9 +38,8 @@ function App() {
        <Route path="addBook" element={<AddBook />} />
        <Route path="addBook/:bookId" element={<AddBook />} />
        <Route path="myBorrows" element={<MyBorrows />} />
-       <Route path="login" element={<Login />} />
        <Route path="addUser" element={<AddUser  setUserInfo={setUserInfo} />} />
-       <Route path="*" element={<Login />} />
+       <Route path="*" element={<Login  setUserInfo={setUserInfo}/>} />
      </Routes>
    </div>
  </div>
