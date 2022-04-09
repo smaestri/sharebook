@@ -3,9 +3,10 @@ import axios from 'axios';
 
 import { AUTH_TOKEN_KEY } from "App";
 
-export default function Header({ userInfo }) {
+export default function Header({ userInfo, setUserInfo }) {
     const history = useNavigate();
     const signout = () => {
+       setUserInfo(null)
        sessionStorage.removeItem(AUTH_TOKEN_KEY)
        history('/login')
     }
