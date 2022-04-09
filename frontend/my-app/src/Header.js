@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({userInfo}) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -20,7 +20,7 @@ export default function Header() {
                         <Link className="nav-link" to="/listBooks">Livres disponibles</Link>
                     </li>
                 </ul>
-                <div>Bienvenue, ...</div>
+                <div>Bienvenue, {userInfo}</div>
                 <button variant="secondary">Se déconnecter</button>
             </div>
         </nav>
