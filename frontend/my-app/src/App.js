@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes} from 'react-router-dom'
+import { Route, Routes, useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import AddBook from './AddBook';
 import AddUser from './AddUser';
@@ -11,6 +11,22 @@ import MyBorrows from './MyBorrows'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
+
+const UserConnected = ({ setUserInfo, userInfo }) => {
+  const history = useNavigate();
+  React.useEffect(() => {
+    setUserInfo(null)
+    axios.get('/isConnected').then(response => {
+      setUserInfo(response.data)
+    })
+  }, [history, setUserInfo])
+
+  return (<>
+    {userInfo && <Header userInfo={userInfo} setUserInfo={setUserInfo} />}
+  </>)
+
+}
+
 
 function App() {
 
@@ -30,8 +46,8 @@ function App() {
 
   return (
     <div>
-    {userInfo && <Header userInfo={userInfo} setUserInfo={setUserInfo} />}
-   <div className="App">
+    <UserConnected userInfo={userInfo} setUserInfo={setUserInfo} />   
+    <div className="App">
      <Routes>
        <Route path="listBooks" element={<ListBooks />} />
        <Route path="myBooks" element={<MyBooks />} />
