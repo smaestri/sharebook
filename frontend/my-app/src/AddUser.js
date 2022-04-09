@@ -28,7 +28,7 @@ class AddUser extends React.Component {
          sessionStorage.setItem(AUTH_TOKEN_KEY,jwt)
        }
         this.props.setUserInfo(response.data.firstName + " " + response.data.lastName)
-        this.props.history("/listBooks")
+      this.props.history("/myBooks")
     })
 }
 
