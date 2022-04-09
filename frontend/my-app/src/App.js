@@ -1,3 +1,4 @@
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AddBook from './AddBook';
 import AddUser from './AddUser';
@@ -11,9 +12,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
+  const [userInfo, setUserInfo] = React.useState('');
+
   return (
     <div>
-       <Header />
+      <Header userInfo={userInfo}/>
       <div className="App">
         <Routes>
           <Route path="listBooks" element={<ListBooks />} />
@@ -22,7 +25,7 @@ function App() {
           <Route path="addBook/:bookId" element={<AddBook />} />
           <Route path="myBorrows" element={<MyBorrows />} />
           <Route path="login" element={<Login />} />
-          <Route path="addUser" element={<AddUser />} />
+          <Route path="addUser" element={<AddUser setUserInfo={setUserInfo}/>} />
         </Routes>
       </div>
     </div>

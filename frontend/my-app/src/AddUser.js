@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 import './AddUser.scss'
@@ -17,14 +17,15 @@ class AddUser extends React.Component {
     this.setState({ userData: currentState })
   }
 
-  onSubmit = (event) =>  {
+  onSubmit = (event) => {
     event.preventDefault();
     axios.post('/users', {
       ...this.state.userData
     }).then(response => {
-      console.log('created' + response)
+      this.props.setUserInfo(response.data.firstName + " " + response.data.lastName)
+      this.props.history("/listBooks")
     })
-}
+  }
 
   render() {
     return (
@@ -61,4 +62,8 @@ class AddUser extends React.Component {
   }
 }
 
-export default AddUser
+// Wrap and export
+export default function (props) {
+  const history = useNavigate();
+  return <AddUser {...props} history={history} />;
+}
