@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-
+import axios from 'axios';
 import './AddUser.scss'
+import { AUTH_TOKEN_KEY } from 'App';
 
 class AddUser extends React.Component {
 
@@ -16,11 +17,18 @@ class AddUser extends React.Component {
     this.setState({ userData: currentState })
   }
 
-  onSubmit = (event) => {
+  onSubmit = (event) =>  {
     event.preventDefault();
-    console.log("onSubmit")
-    console.log(this.state.userData)
-  }
+    axios.post('/users', {
+      ...this.state.userData
+    }).then(response => {
+       const bearerToken = response?.headers?.authorization;
+       if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
+         const jwt = bearerToken.slice(7, bearerToken.length);
+         sessionStorage.setItem(AUTH_TOKEN_KEY,jwt)
+       }
+    })
+}
 
   render() {
     return (
