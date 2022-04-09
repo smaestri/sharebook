@@ -3,17 +3,28 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 import Book from './Book'
 
+
 import './MyBooks.scss'
 
 const MyBooks = () => {
 
   const [myBooks, setMyBooks] = React.useState([])
-  
-    React.useEffect(() => {
-      axios.get('/books').then(response => {
-        setMyBooks(response.data)
-      })
-    }, [])
+
+  const fetchBooks = () => {
+    axios.get('/books').then(response => {
+      setMyBooks(response.data)
+    })
+  }
+
+  React.useEffect(() => {
+    fetchBooks();
+  }, [])
+
+  const handleDelete = (bookId) => {
+    axios.delete(`/books/${bookId}`).then(response => {
+      fetchBooks();
+    })
+  }
 
   return (
     <div className="container">
@@ -26,7 +37,7 @@ const MyBooks = () => {
             <Link to={`/addBook/${book.id}`}>
               <button className="btn btn-primary btn-sm">Modifier</button>
             </Link>
-            <button className="btn btn-primary btn-sm">Supprimer</button>
+            <button className="btn btn-primary btn-sm" onClick={() => handleDelete(book.id)}>Supprimer</button>
           </div>
         </div>))}
       </div>
