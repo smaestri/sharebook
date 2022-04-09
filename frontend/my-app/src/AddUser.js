@@ -23,7 +23,7 @@ class AddUser extends React.Component {
       ...this.state.userData
     }).then(response => {
       this.props.setUserInfo(response.data.firstName + " " + response.data.lastName)
-      this.props.history("/listBooks")
+      this.props.history("/myBooks")
     })
   }
 
