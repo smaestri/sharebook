@@ -1,9 +1,11 @@
 import React from 'react'
 import logo from './logo.jpg';
-import { Link } from "react-router-dom";
+import axios from 'axios';
+import { Link, useNavigate} from "react-router-dom";
 import './Login.scss'
+import { AUTH_TOKEN_KEY } from 'App'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 
     constructor() {
         super();
@@ -18,17 +20,28 @@ export default class Login extends React.Component {
         this.setState({ userData: currentState })
     }
 
-    onSubmit(event) {
+    onSubmit (event) {
         event.preventDefault();
-        console.log("onsubmit")
-        console.log(this.state.userData)
+        axios.post('/authenticate', {
+            email: this.state.userData.email,
+            password: this.state.userData.password
+        }).then((response) => {
+            const bearerToken = response?.headers?.authorization;
+            if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
+              const jwt = bearerToken.slice(7, bearerToken.length);
+              sessionStorage.setItem(AUTH_TOKEN_KEY,jwt)
+            }
+            this.props.setUserInfo(response.data.userName)
+            this.props.history('/listbooks')
+        })
     }
+
     render() {
         return (
             <div className="login-container">
                 <div>
                     <div>
-                        <img src={logo} alt="Logo" />
+                    <img src={logo} alt="Logo" />
                     </div>
                     <div className="title">
                         Bienvenue sur Sharebook!
@@ -50,3 +63,9 @@ export default class Login extends React.Component {
         )
     }
 }
+
+// Wrap and export
+export default function (props) {
+    const history = useNavigate();
+    return <Login {...props} history={history} />;
+  }
