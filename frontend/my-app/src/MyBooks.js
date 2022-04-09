@@ -41,7 +41,7 @@ const fetchBooks = () => {
       </div>
       ))}
     </div>
-    <Link to="/addBook"><button className="btn btn-primary btn-sm">Nouveau livre</button></Link>
+    <button className="btn btn-primary btn-sm" onClick={()=> history("/addBook/")}>Nouveau livre</button>
   </div>
 
   )
