@@ -1,28 +1,25 @@
 import React from 'react'
 import Book from './Book'
+import axios from 'axios';
 import './MyBorrows.scss'
 
 export default function MyBorrows() {
 
     const [myBorrows, setMyBorrows] = React.useState([]);
+    const getMyBorrows = () => {
+        axios.get('/borrows').then(response => {
+            setMyBorrows(response.data)
+           })
+    }
 
-    React.useEffect(() => {
-
-        setMyBorrows([
-            {
-                lender: "toto",
-                borrower: "tata",
-                book: {
-                    name: "tintin",
-                    category: {
-                        label: "BD"
-                    }
-                }
-            }
-        ])
-    }, [])
+    React.useEffect(()=> {
+        getMyBorrows();
+    },[])
 
     const closeBorrow = (borrowId) => {
+        axios.delete(`/borrows/${borrowId}`).then(response => {
+            getMyBorrows();
+           })
     }
 
     return (
