@@ -74,7 +74,7 @@ export default function AddBook() {
                 </div>
                 <div>
                     <label>Catégorie du livre</label>
-                    <select name="categoryId" value={bookData.categoryId} onChange={handleChange} className="form-control">
+                    <select name="categoryId" value={bookData.categoryId} onChange={handleChange} className="form-select">
                         {categoriesData.map(category => (
                             <option value={category.id} key={category.id}>{category.label}</option>
                         ))}
