@@ -29,6 +29,9 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/index.html").permitAll()
+                        .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/users").permitAll()
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers("/isConnected").permitAll()
