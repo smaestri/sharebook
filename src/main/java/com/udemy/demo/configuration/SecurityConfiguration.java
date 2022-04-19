@@ -26,6 +26,8 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/static/**/").permitAll()
                 .antMatchers("/users").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/isConnected").permitAll()
