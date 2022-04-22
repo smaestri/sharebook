@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-doc.version>2.0.2</spring-doc.version>
+		<azure.version>3.10.0</azure.version>
 		<frontend-plugin-plugin.version>1.12.1</frontend-plugin-plugin.version>
 		<node.version>v16.13.1</node.version>
 		<npm.version>8.1.2</npm.version>
@@ -71,6 +72,19 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+
+		<!-- VAULT -->
+		<dependency>
+			<groupId>com.azure.spring</groupId>
+			<artifactId>azure-spring-boot-starter-keyvault-secrets</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.azure</groupId>
+			<artifactId>azure-identity</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -146,5 +160,18 @@
 
 		</plugins>
 	</build>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.azure.spring</groupId>
+				<artifactId>azure-spring-boot-bom</artifactId>
+				<version>${azure.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 </project>
