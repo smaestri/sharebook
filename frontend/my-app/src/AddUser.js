@@ -77,7 +77,7 @@ class AddUser extends React.Component {
 }
 
 // Wrap and export
-export default function (props) {
+export default function Wrapper(props) {
   const history = useNavigate();
   return <AddUser {...props} history={history} />;
 }
