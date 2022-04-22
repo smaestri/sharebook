@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes, useNavigate} from 'react-router-dom'
+import { Route, Routes, useNavigate, useLocation, BrowserRouter } from 'react-router-dom'
 import axios from 'axios';
 import AddBook from './AddBook';
 import AddUser from './AddUser';
@@ -27,7 +27,6 @@ const UserConnected = ({ setUserInfo, userInfo }) => {
 
 }
 
-
 function App() {
 
   const [userInfo, setUserInfo] = React.useState('');
@@ -46,7 +45,7 @@ function App() {
 
   return (
     <div>
-    <UserConnected userInfo={userInfo} setUserInfo={setUserInfo} />   
+    <UserConnected userInfo={userInfo} setUserInfo={setUserInfo} />
     <div className="App">
      <Routes>
        <Route path="listBooks" element={<ListBooks />} />
@@ -55,7 +54,7 @@ function App() {
        <Route path="addBook/:bookId" element={<AddBook />} />
        <Route path="myBorrows" element={<MyBorrows />} />
        <Route path="addUser" element={<AddUser  setUserInfo={setUserInfo} />} />
-       <Route path="*" element={<Login  setUserInfo={setUserInfo}/>} />
+       <Route path="*" element={<Login  setUserInfo={setUserInfo} />} />
      </Routes>
    </div>
  </div>
