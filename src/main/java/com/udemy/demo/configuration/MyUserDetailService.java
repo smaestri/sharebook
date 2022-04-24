@@ -1,6 +1,6 @@
 package com.udemy.demo.configuration;
 
-import com.udemy.demo.user.User;
+import com.udemy.demo.user.UserInfo;
 import com.udemy.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +22,7 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        List<User> users = userRepository.findByEmail(login);
+        List<UserInfo> users = userRepository.findByEmail(login);
         if(users.isEmpty()) {
             throw new UsernameNotFoundException(login);
         }
@@ -31,17 +31,17 @@ public class MyUserDetailService implements UserDetailsService {
     }
 
     public static class UserPrincipal implements UserDetails {
-        private User user;
+        private UserInfo user;
 
-        public UserPrincipal(User user){
+        public UserPrincipal(UserInfo user){
             this.user = user;
         }
 
-        public User getUser() {
+        public UserInfo getUser() {
             return user;
         }
 
-        public void setUser(User user) {
+        public void setUser(UserInfo user) {
             this.user = user;
         }
 
