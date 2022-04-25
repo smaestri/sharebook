@@ -8,8 +8,12 @@ import MyBooks from './MyBooks'
 import Login from './Login'
 import Header from './Header'
 import MyBorrows from './MyBorrows'
+import { useEffect, useState } from "react";
+import Spinner from 'react-bootstrap/Spinner'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './App.scss'
 
 const UserConnected = ({ setUserInfo, userInfo }) => {
   const history = useNavigate();
@@ -32,10 +36,40 @@ const UserConnected = ({ setUserInfo, userInfo }) => {
 }
 function App() {
 
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    axios.interceptors.request.use(function (request) {
+      setLoading(true)
+      return request
+    }, (error) => {
+      setLoading(false)
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use(function (response) {
+      setLoading(false)
+      return response;
+    }, (error) => {
+      setLoading(false)
+      return Promise.reject(error);
+    });
+
+  })
+
+
   const [userInfo, setUserInfo] = React.useState('');
 
   return (
     <div>
+
+    {loading && (
+            <div className="background-spinner">
+              <div className="spinner">
+                <Spinner animation="grow" variant="light" />
+              </div>
+            </div>
+          )}
       <UserConnected userInfo={userInfo} setUserInfo={setUserInfo} />
       <div className="App">
         <Routes>
