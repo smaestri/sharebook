@@ -60,7 +60,7 @@ function App() {
   })
 
   return (
-    <div>
+    <div id="page">
 
       {loading && (
         <div className="background-spinner">
@@ -70,7 +70,7 @@ function App() {
         </div>
       )}
       <UserConnected userInfo={userInfo} setUserInfo={setUserInfo} />
-      <div className="App">
+      <div id="content">
         <Routes>
           <Route path="listBooks" element={<ListBooks />} />
           <Route path="myBooks" element={<MyBooks />} />
@@ -81,7 +81,9 @@ function App() {
           <Route path="*" element={<Login setUserInfo={setUserInfo} />} />
         </Routes>
       </div>
+      <div><i>V. 2023.08</i></div>
     </div>
+    
   );
 }
 export default App;
