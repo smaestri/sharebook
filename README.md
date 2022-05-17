@@ -2,7 +2,7 @@
 
 Code de la formation en ligne Udemy *Développeur Web Fullstack avec Spring et React*
 https://www.udemy.com/course/developpeur-web-fullstack-avec-spring-et-react.
-L'application finale est déployée sur Azure et testable ici https://sharebook.azurewebsites.net/index.html
+L'application finale est déployée sur Azure et testable ici https://sharebook.azurewebsites.net/
 
 ## Code du cours en ligne
 
