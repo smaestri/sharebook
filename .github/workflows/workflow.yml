@@ -3,7 +3,7 @@ name: Deploy Java app to Azure Web App
 on:
   push:
     branches:
-      - main
+      - test/deploy
 
 env:
   AZURE_WEBAPP_NAME: sharebook
