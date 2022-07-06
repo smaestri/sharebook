@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<UserInfo, Integer> {
 
-    List<UserInfo> findByEmail(String email);
+    UserInfo findOneByEmail(String email);
 
 }

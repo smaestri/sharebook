@@ -43,14 +43,14 @@ public class BookController {
         return new ResponseEntity(books, HttpStatus.OK);
     }
 
-    public static Integer getUserConnectedId(Principal principal) {
+    public Integer getUserConnectedId(Principal principal) {
         if (!(principal instanceof UsernamePasswordAuthenticationToken)) {
             throw new RuntimeException(("User not found"));
         }
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
-        Integer userId = ((MyUserDetailService.UserPrincipal) token.getPrincipal()).getUser().getId();
+        UserInfo oneByEmail = userRepository.findOneByEmail(token.getName());
 
-        return userId;
+        return oneByEmail.getId();
     }
 
     @PostMapping(value = "/books")

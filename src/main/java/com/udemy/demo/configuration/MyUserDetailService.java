@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -22,64 +21,10 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        List<UserInfo> users = userRepository.findByEmail(login);
-        if(users.isEmpty()) {
-            throw new UsernameNotFoundException(login);
-        }
+        UserInfo user = userRepository.findOneByEmail(login);
 
-        return new UserPrincipal(users.get(0));
-    }
-
-    public static class UserPrincipal implements UserDetails {
-        private UserInfo user;
-
-        public UserPrincipal(UserInfo user){
-            this.user = user;
-        }
-
-        public UserInfo getUser() {
-            return user;
-        }
-
-        public void setUser(UserInfo user) {
-            this.user = user;
-        }
-
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            final List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            return authorities;
-        }
-
-        @Override
-        public String getPassword() {
-            return user.getPassword();
-        }
-
-        @Override
-        public String getUsername() {
-            return user.getEmail();
-        }
-
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isAccountNonLocked() {
-            return true;
-        }
-
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return true;
-        }
+        final List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 }

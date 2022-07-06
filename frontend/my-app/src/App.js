@@ -10,10 +10,10 @@ import Header from './Header'
 import MyBorrows from './MyBorrows'
 import { useEffect, useState } from "react";
 import Spinner from 'react-bootstrap/Spinner'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import './App.scss'
+
+export const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
 const UserConnected = ({ setUserInfo, userInfo }) => {
   const history = useNavigate();
@@ -41,6 +41,10 @@ function App() {
   useEffect(() => {
     axios.interceptors.request.use(function (request) {
       setLoading(true)
+      const token = sessionStorage.getItem(AUTH_TOKEN_KEY)
+      if (token) {
+        request.headers.Authorization = `Bearer ${token}`;
+      }
       return request
     }, (error) => {
       setLoading(false)
@@ -56,8 +60,6 @@ function App() {
     });
 
   })
-
-
   const [userInfo, setUserInfo] = React.useState('');
 
   return (

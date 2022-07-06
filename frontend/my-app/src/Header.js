@@ -2,14 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { AUTH_TOKEN_KEY } from "App";
 
 export default function Header({ userInfo, setUserInfo }) {
     const history = useNavigate();
     const signout = () => {
-        axios.post('/logout').then(response => {
-            history('/login')
-            setUserInfo(null)
-        })
+        setUserInfo(null)
+        sessionStorage.removeItem(AUTH_TOKEN_KEY)
+        history('/login')
     }
 
     return (

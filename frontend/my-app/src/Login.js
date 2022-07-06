@@ -4,6 +4,7 @@ import SimpleModal from './SimpleModal';
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import './Login.scss'
+import { AUTH_TOKEN_KEY } from 'App';
 
 class Login extends React.Component {
 
@@ -27,7 +28,11 @@ class Login extends React.Component {
             email: this.state.userData.email,
             password: this.state.userData.password
         }).then((response) => {
-            console.log('response')
+            const bearerToken = response?.headers?.authorization;
+            if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
+              const jwt = bearerToken.slice(7, bearerToken.length);
+              sessionStorage.setItem(AUTH_TOKEN_KEY,jwt)
+            }
             this.props.setUserInfo(response.data.userName)
             this.props.history('/listbooks')
         }).catch(() => {

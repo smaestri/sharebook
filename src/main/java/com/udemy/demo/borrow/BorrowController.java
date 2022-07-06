@@ -28,15 +28,18 @@ public class BorrowController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    BookController bookController;
+
     @GetMapping(value ="/borrows")
     public ResponseEntity list(Principal principal) {
-        List<Borrow> borrows = borrowRepository.findByBorrowerId(BookController.getUserConnectedId(principal));
+        List<Borrow> borrows = borrowRepository.findByBorrowerId(bookController.getUserConnectedId(principal));
         return new ResponseEntity(borrows, HttpStatus.OK);
     }
 
     @PostMapping("/borrows/{bookId}")
     public ResponseEntity create(@PathVariable("bookId") String bookId, Principal principal) {
-        Integer userConnectedId = BookController.getUserConnectedId(principal);
+        Integer userConnectedId = bookController.getUserConnectedId(principal);
         Optional<UserInfo> borrower = userRepository.findById(userConnectedId);
         Optional<Book> book = bookRepository.findById(Integer.valueOf(bookId));
 

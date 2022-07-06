@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import SimpleModal from './SimpleModal'
 import './AddUser.scss'
+import { AUTH_TOKEN_KEY } from 'App';
 
 class AddUser extends React.Component {
 
@@ -26,6 +27,11 @@ class AddUser extends React.Component {
     axios.post('/users', {
       ...this.state.userData
     }).then(response => {
+      const bearerToken = response?.headers?.authorization;
+      if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
+        const jwt = bearerToken.slice(7, bearerToken.length);
+        sessionStorage.setItem(AUTH_TOKEN_KEY,jwt)
+      }
       this.props.setUserInfo(response.data.firstName + " " + response.data.lastName)
       this.props.history("/myBooks")
     }).catch(() => {
