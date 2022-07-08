@@ -33,6 +33,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers("/users").permitAll()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/isConnected").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
