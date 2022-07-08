@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users").permitAll()
                         .requestMatchers("/authenticate").permitAll()
+                        .requestMatchers("/isConnected").permitAll()
                         .anyRequest().authenticated()
 
                 );
