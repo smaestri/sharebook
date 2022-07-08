@@ -6,6 +6,7 @@ import com.udemy.demo.book.BookRepository;
 import com.udemy.demo.book.BookStatus;
 import com.udemy.demo.user.UserInfo;
 import com.udemy.demo.user.UserRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class BorrowController {
 
     @Autowired
