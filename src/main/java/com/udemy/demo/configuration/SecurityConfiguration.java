@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers("/users").permitAll()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/isConnected").permitAll()
                 .anyRequest().authenticated();
         return http.build();
     }
