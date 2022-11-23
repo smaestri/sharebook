@@ -11,6 +11,12 @@ Veuillez consulter directement [la liste des commits](https://github.com/smaestr
 
 ## Mises à jour
 
+### 07/2022 
+- Revue complète de la Section 4 - Sécurité suite à la mise à jour de la dernière version Spring-Boot vers 2.7.1;
+- Modifications Front suite au passage à React 18;
+- Token JWT stocké dans le local Storage  du navigateur, et transmis par Header Authorization (et non plus par Cookie);
+- Amélioration du Swagger (ajout bouton Authorize pour mettre un token JWT)
+
 ### 04/2022 - Mises à jour des versions des framework utilisés
  Spring Boot 2.6.6, Node LTS 16.14.2, React 18, react-router 6.3.0, react-boostrap 2.1.3, axios 0.0.26.1
 
