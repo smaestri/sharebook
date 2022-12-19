@@ -11,6 +11,9 @@ Veuillez consulter directement [la liste des commits](https://github.com/smaestr
 
 ## Mises à jour
 
+### 12/2022 
+Upgrade Node vers 18LTS
+
 ### 07/2022 
 - Revue complète de la Section 4 - Sécurité suite à la mise à jour de la dernière version Spring-Boot vers 2.7.1;
 - Modifications Front suite au passage à React 18;
