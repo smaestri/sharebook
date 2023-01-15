@@ -2,7 +2,7 @@ package com.udemy.demo.book;
 
 import com.udemy.demo.user.UserInfo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity

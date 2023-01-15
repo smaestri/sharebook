@@ -3,7 +3,7 @@ package com.udemy.demo.borrow;
 import com.udemy.demo.book.Book;
 import com.udemy.demo.user.UserInfo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
