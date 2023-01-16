@@ -15,8 +15,8 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<azure.version>3.10.0</azure.version>
-		<java.version>11</java.version>
-		<spring-doc.version>1.6.14</spring-doc.version>
+		<java.version>17</java.version>
+		<spring-doc.version>2.0.2</spring-doc.version>
 		<frontend-plugin-plugin.version>1.12.1</frontend-plugin-plugin.version>
 		<node.version>v18.12.1</node.version>
 		<npm.version>8.19.2</npm.version>
@@ -39,7 +39,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${spring-doc.version}</version>
 		</dependency>
 		<dependency>
@@ -72,7 +72,6 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
 
 		<!-- VAULT -->
 		<dependency>

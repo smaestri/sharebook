@@ -16,9 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfiguration {
 
-//    @Autowired
-//    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-
     @Autowired
     JwtFilter jwtFilter;
 
@@ -36,12 +33,14 @@ public class SecurityConfiguration {
                         .requestMatchers("/users").permitAll()
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers("/isConnected").permitAll()
-                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api-docs/**").permitAll()
+                        .requestMatchers("/api-docs.yaml").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/webjars/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
+
                 );
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
