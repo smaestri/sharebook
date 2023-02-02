@@ -79,7 +79,7 @@ function App() {
           <Route path="*" element={<Login setUserInfo={setUserInfo} />} />
         </Routes>
       </div>
-      <div><i>V. 2022.12</i></div>
+      <div><i>V. 2023.02</i></div>
     </div>
     
   );
