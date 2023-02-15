@@ -11,6 +11,9 @@ Veuillez consulter directement [la liste des commits](https://github.com/smaestr
 
 ## Mises à jour
 
+### 02/2023
+Spring BOOT 3.0.2 avec JAVA 17!
+
 ### 12/2022 
 Upgrade Node vers 18LTS
 
