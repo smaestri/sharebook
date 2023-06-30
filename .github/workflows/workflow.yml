@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - fix
 
 env:
   AZURE_WEBAPP_NAME: sharebook
