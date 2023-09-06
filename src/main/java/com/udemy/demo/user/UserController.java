@@ -50,7 +50,11 @@ public class UserController {
     public ResponseEntity getUSerConnected() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            return new ResponseEntity(((UserDetails) principal).getUsername(), HttpStatus.OK);
+            String username = ((UserDetails) principal).getUsername();
+            UserInfo oneByEmail = userRepository.findOneByEmail(username);
+            if (oneByEmail != null) {
+                return new ResponseEntity(username, HttpStatus.OK);
+            }
         }
         return new ResponseEntity("User is not connected", HttpStatus.FORBIDDEN);
     }

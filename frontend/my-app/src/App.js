@@ -15,11 +15,23 @@ import './App.scss'
 
 export const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
+  //todo loading
+    axios.interceptors.request.use(function (request) {
+      const token = sessionStorage.getItem(AUTH_TOKEN_KEY)
+      if (token) {
+        request.headers.Authorization = `Bearer ${token}`;
+      }
+      return request
+    }, (error) => {
+      return Promise.reject(error);
+    });
+
 const UserConnected = ({ setUserInfo, userInfo }) => {
   const history = useNavigate();
   React.useEffect(() => {
     setUserInfo(null)
     axios.get('/isConnected').then(response => {
+      console.log('response.data' + response.data)
       setUserInfo(response.data)
     }).catch(err => {
       console.error('failed to get user')
@@ -38,23 +50,11 @@ function App() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    axios.interceptors.request.use(function (request) {
-      const token = sessionStorage.getItem(AUTH_TOKEN_KEY)
-      if (token) {
-        request.headers.Authorization = `Bearer ${token}`;
-      }
-      setLoading(true)
-      return request
-    }, (error) => {
-      setLoading(false)
-      return Promise.reject(error);
-    });
+
 
     axios.interceptors.response.use(function (response) {
-      setLoading(false)
       return response;
     }, (error) => {
-      setLoading(false)
       return Promise.reject(error);
     });
   })
@@ -83,7 +83,7 @@ function App() {
       </div>
       <div><i>V. 2023.08</i></div>
     </div>
-    
+
   );
 }
 export default App;
